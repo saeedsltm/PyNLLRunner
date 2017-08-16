@@ -558,6 +558,6 @@ start.run_nlloc(sta_cor=True)
 start.extract_nlloc_hyp(root_name=start.nlloc_dic['LOCFILES_OUTPUT'])
 start.plot_statis(root_name=start.nlloc_dic['LOCFILES_OUTPUT'])
 
-for f in glob(start.nlloc_dic['LOCFILES_OUTPUT'])+'*'): os.remove(f)
+for f in glob(start.nlloc_dic['LOCFILES_OUTPUT']+'*'): os.remove(f)
 
 print '\n+++ Finito!\n'
