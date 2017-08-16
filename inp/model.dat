@@ -1,0 +1,6 @@
+# model layers (LAYER depth, Vp_top, Vp_grad, Vs_top, Vs_grad, p_top, p_grad)
+LAYER   0.00 4.50 0.00 2.60 0.00 2.70 0.00
+LAYER   4.00 5.20 0.00 3.01 0.00 2.70 0.00
+LAYER   8.00 5.80 0.00 3.35 0.00 2.70 0.00
+LAYER  12.00 6.30 0.00 3.64 0.00 2.70 0.00
+LAYER  18.00 6.80 0.00 3.93 0.00 2.70 0.00
