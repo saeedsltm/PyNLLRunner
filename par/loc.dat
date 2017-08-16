@@ -1,0 +1,21 @@
+#
+#
+#
+###################
+NSTD              = 1        # Number of standard deviation for plotting ellipses 1: %68 , 2: %95.
+LAT_MIN           = 35.00    # Minimum Latitude
+LAT_MAX           = 37.00    # Maximum Latitude
+LON_MIN           = 51.00    # Minimum Longitude    
+LON_MAX           = 53.00    # Maximum Longitude
+DEP_MAX           = 25.00    # Maximum Depth
+P_RES_MAX         = 0.5      # Maximum P-residual 
+S_RES_MAX         = 0.5      # Maximum S-residual
+MAX_DIST          = 50       # Maximum distance for residual plot
+HERR_MAX          = 10       # Maximum Horizontal Error
+ZERR_MAX          = 10       # Maximum Depth Error
+RMS_MAX           = 1.0      # Maximum RMS 
+MINDS_MAX         = 20       # Maximum MinDistance
+DEP_HIST_BW       = 2        # Depth histogram bin width
+HER_HIST_BW       = 0.25     # Herr histogram bin width
+ZER_HIST_BW       = 0.25     # Zerr histogram bin width
+RMS_HIST_BW       = 0.05     # RMS histogram bin width

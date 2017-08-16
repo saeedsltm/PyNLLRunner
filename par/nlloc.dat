@@ -1,0 +1,56 @@
+TRANS_LAT         = 36.00              # Center of study region's Latitude.
+TRANS_LON         = 52.00              # Center of study region's Longitude.
+TRANS_LAT_MIN     = 34.0               # First Standard Paralel.
+TRANS_LAT_MAX     = 38.0               # Second Standard Paralel.
+VGGRID_NUM_G_N_XY = 201                # Number of nodes along x/y/z axis.
+VGGRID_NUM_G_N_Z  =  51                # Number of nodes along z axis.
+VGGRID_GRID_X     =  0.0               # X location of grid origin (0,0,0) in km pos east.
+VGGRID_GRID_Y     =  0.0               # Y location of grid origin (0,0,0) in km pos north.
+VGGRID_GRID_Z     = -3.0               # Z location of grid origin (0,0,0) in km pos down.
+VGGRID_G_S_XYZ    =  1.0 1.0 1.0       # Grid spacing along x/y/z axis. 
+VGGRID_VEL_INP    = inp/model.dat      # Velocity model file.
+VGGRID_STA_INP    = inp/station.dat    # Station file.
+LOCSIG            = user               # Signature.
+LOCCOM            = comment            # Comments.
+LOCFILES_OBS      = inp/select.out     # Observation file name  could be NORDIC. NLloc, ... .
+LOCFILES_TYP      = SEISAN             # Obs type: (NLLOC_OBS, HYPO71, HYPOELLIPSE, RENASS_DEP, SEISAN, HYPODD_).
+LOCFILES_OUTPUT   = Alborz_Baladeh     # Output files root name.
+LOCHYPOUT         =  4                 # Output type: (1:SAVE_NLLOC_ALL,2:SAVE_NLLOC_SUM,3:SAVE_HYPO71_SUM,4:All)  
+LOCSEARCH_MIN_XYZ =  10 10 4           # Search type, Initial Number of cells in x/y/z directions. 
+LOCSEARCH_NODE    =  0.01 10000 5000   # Search type, minimum node size, max number of nodes, number of scatters.
+LOCSEARCH_STP     =  0 1               #  1:use stations density or not  0 , 1:stop on min node size or not  0  .
+LOCGRID_GNUM_XYZ  = 201 201 41         # Number of nodes along x/y/z axis.
+LOCGRID_GRID_X    = -101.0             # X location of grid origin (0,0,0) in km pos east.
+LOCGRID_GRID_Y    = -101.0             # Y location of grid origin (0,0,0) in km pos north.
+LOCGRID_GRID_Z    =   0.0              # Z location of grid origin (0,0,0) in km pos down.
+LOCGRID_G_S_XYZ   = 1.0 1.0 1.0        # Grid spacing along x/y/z axis.
+LOCMETH_MAX_ST_D  = 200.0              # Maximum Distnce Station to Grid.
+LOCMETH_MIN_ST_D  = -1.0               # Minimum Distnce Station to Grid.
+LOCMETH_MIN_NM_PH = 4                  # Minimum number of phases used for location.
+LOCMETH_MAX_NM_PH = -1                 # Maximum number of phases used for location.
+LOCMETH_MIN_NM_S  = -1                 # Minimum number of S-phases used for location.
+LOCMETH_VP_VS     = 1.78               # Vp/Vs.
+LOCMETH_MAX_G     = 6                  # Maximum number of 3D_grids to attempt to read into memory.
+LOCMETH_DUP       = 0                  # Flag indicating if duplicate arrivals used for location 1=reject, 0=use.
+LOCGAU            =  0.2 0.0           # Gaussian model error parameters (LOCGAU Sigma_T (s), CorrLen (km)).
+LOCGAU2           =  0.01 0.05 2.0     # Travel-time dependent gaussian model error parameters (%TT,Tmax,Tmin).
+LOCPHASEID_P      =  P p PN PG Pn Pg   # P-Phase identifier mapping.
+LOCPHASEID_S      =  S s SN SG Sn Sg   # S-Phase identifier mapping. To Ignore S: ==>  $ .
+LOCPHSTAT_RMS_Max =  9999.0            # Max hypocenter RMS to include in ave residual.
+LOCPHSTAT_NR_Min  =    -1              # Min hypocenter number of readings to include in ave residual.
+LOCPHSTAT_Gap_Max =  9999.0            # Max hypocenter gap (deg) to include in ave residual.
+LOCPHSTAT_P_RMax  =     1.0            # Max abs(P res) to include in ave residual.
+LOCPHSTAT_S_RMax  =     1.0            # Max abs(S res) to include in ave residual.
+LOCPHSTAT_EL3_Max =  9999.0            # Max ellipsoid major semi-axis length to include in ave residual.
+LOCPHSTAT_D_Min   = -9999.0            # Min hypo depth to include in ave residual.
+LOCPHSTAT_D_Max   =  9999.0            # Max hypo depth to include in ave residual.
+DLOC_MAX_EVNT_DIS =    10              # Max distance between pair events.
+DLOC_MIN_ARR_WT   =   0.1              # Min arrival weight to be considered.
+DLOC_MAX_STA_DIS  =   200              # Max station distance to the pair-event.
+DLOC_NumSamples   = 500                # Max number of accepted Metropolis samples.
+DLOC_BeginSave    = 250                # Number of accepted Metropolis samples at which to begin saving samples to form pdf scatter cloud.
+DLOC_NumSkip      = 20                 # Number of accepted Metropolis samples to skip between sample saves.
+DLOC_Step         = 0.005              # Nominal Metropolis x,y,z,ot*v step size when temperature = 1.0. 
+DLOC_Velocity     = 6.0                # Velocity to convert ot to distance.
+DLOC_InitialTemp  = 5.0                # Starting temperature; temperature will vary linearly from InitialTemperature->1.0.
+DLOC_MaxStep      = 0.1                # Max nominal Metropolis x,y,z,ot*v step size when temperature = 1.0.
