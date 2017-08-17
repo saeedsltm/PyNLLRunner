@@ -8,8 +8,6 @@ from matplotlib import ticker
 import matplotlib.pyplot as plt
 from matplotlib.patches import Ellipse
 from glob import glob
-from initial_mpl import init_plotting
-from PyMyFunc import d2k, k2d
 
 """
 Script for running NLLOC package.
@@ -20,7 +18,49 @@ ChangeLogs:
 16-Aug-2017 > Initial.
 
 """
-                     
+
+#___________________ USEFULL FUNC
+
+def init_plotting():
+
+    plt.rcParams['figure.figsize']       = (16, 9)
+    plt.rcParams['figure.dpi']           = 75
+    plt.rcParams['font.size']            = 13
+    plt.rcParams['font.family']          = 'Times New Roman'
+    plt.rcParams['axes.labelsize']       = plt.rcParams['font.size']
+    plt.rcParams['axes.titlesize']       = 1.5*plt.rcParams['font.size']
+    plt.rcParams['legend.fontsize']      = plt.rcParams['font.size']
+    plt.rcParams['xtick.labelsize']      = plt.rcParams['font.size']
+    plt.rcParams['ytick.labelsize']      = plt.rcParams['font.size']
+    plt.rcParams['xtick.major.size']     = 3
+    plt.rcParams['xtick.minor.size']     = 3
+    plt.rcParams['xtick.major.width']    = 1
+    plt.rcParams['xtick.minor.width']    = 1
+    plt.rcParams['ytick.major.size']     = 3
+    plt.rcParams['ytick.minor.size']     = 3
+    plt.rcParams['ytick.major.width']    = 1
+    plt.rcParams['ytick.minor.width']    = 1
+    plt.rcParams['legend.frameon']       = True
+    plt.rcParams['legend.shadow']        = True
+    plt.rcParams['legend.loc']           = 'lower left'
+    plt.rcParams['legend.numpoints']     = 1
+    plt.rcParams['legend.scatterpoints'] = 1
+    plt.rcParams['axes.linewidth']       = 1
+    plt.rcParams['savefig.dpi']          = 200
+    plt.rcParams['xtick.minor.visible']  = 'False'
+    plt.rcParams['ytick.minor.visible']  = 'False'
+    plt.gca().xaxis.set_ticks_position('bottom')
+    plt.gca().yaxis.set_ticks_position('left')
+    plt.locator_params(nticks=4)
+    
+def k2d(kilometer, radius=6371):
+
+    return kilometer / (2.0 * radius * pi / 360.0)
+
+def d2k(degrees, radius=6371):
+
+    return degrees * (2.0 * radius * pi / 360.0)
+  
 #___________________ MAIN CLASS
 
 class main():
@@ -112,7 +152,7 @@ class main():
         self.read_nlloc_par()
         self.read_loc_par()
 
-        self.prepare_nldiffloc_files()
+        if P_flag: self.prepare_nldiffloc_files()
 
         self.nlloc_cf = open('nlloc.cf', 'w')
 
@@ -271,7 +311,7 @@ class main():
                 os.mkdir('figs')
                                  
 
-    #_________ RUN NLLOC 
+    #_________ RUN NLLOC/NLDIFFLOC 
                     
     def run_nlloc(self, sta_cor=False):
 
@@ -293,7 +333,7 @@ class main():
 
             print '\n+++ Running NLDiffLoc ...\n'
             self.write_nlloc_cf(P_flag=True, S_flag=False, sta_cor=self.sta_cor)
-            os.system('NLDiffLoc nlloc.cf > /dev/null')
+            os.system('NLDiffLoc nlloc.cf')
             
         elif sta_cor:
 
@@ -318,7 +358,7 @@ class main():
 
         with open(out_evt.name, 'a') as f, open(out_pha.name, 'a') as g:
 
-            hdr_f = '#   LON     LAT     DEP     RMS     GAP     ERH     ERZ     CXX     CXY     CXZ     CYY     CYZ     CZZ  USD_ST  USD_PH  MIN_DS  MAX_DS  AVG_DS'
+            hdr_f = '#    LON      LAT      DEP      RMS      GAP      ERH      ERZ      CXX      CXY      CXZ      CYY      CYZ      CZZ   USD_ST   USD_PH   MIN_DS   MAX_DS   AVG_DS'
             hdr_g = '#   STA     PHA     TT-CAL     RES     WGT    DIST      AZ' 
 
             f.write('%s\n'%hdr_f)
@@ -444,7 +484,7 @@ class main():
         w = self.dep_hist_bw
         b = arange(min(h), max(h) + w, w)
         ax.hist(h,b,color='grey',orientation='horizontal')
-        ax.set_xlabel('# of Event')
+        ax.set_xlabel('# of event')
         ax.set_ylabel('Depth [km]')
         ax.set_ylim(-self.dep_max, 0)
         ax.grid(True)
@@ -459,7 +499,7 @@ class main():
         b = arange(min(h), max(h) + w, w)
         ax.hist(h,bins=b,color='grey')
         ax.set_xlabel('Horizontal Error [km]')
-        ax.set_ylabel('# of Event')
+        ax.set_ylabel('# of event')
         ax.set_xlim(0, self.Herr_max)
         ax.grid(True)
         ax.locator_params(axis = 'x', nbins=5)
@@ -473,7 +513,7 @@ class main():
         b = arange(min(h), max(h) + w, w)
         ax.hist(h,bins=b,color='grey')
         ax.set_xlabel('Depth Error [km]')
-        ax.set_ylabel('# of Event')
+        ax.set_ylabel('# of event')
         ax.set_xlim(0, self.Zerr_max)
         ax.grid(True)
         ax.locator_params(axis = 'x', nbins=5)
@@ -488,7 +528,7 @@ class main():
         ax.hist(h,bins=b,color='grey')
         ax.set_xlim(0, self.rms_max)
         ax.set_xlabel('RMS [sec]')
-        ax.set_ylabel('# of Event')
+        ax.set_ylabel('# of event')
         ax.grid(True)
         ax.locator_params(axis = 'x', nbins=5)
         ax.locator_params(axis = 'y', nbins=5)
@@ -512,6 +552,26 @@ class main():
         ax.grid(True)
         ax.locator_params(axis = 'x', nbins=5)
         ax.locator_params(axis = 'y', nbins=5)
+
+        #__________PLOT H-ERROR VS GAP
+
+        ax = plt.subplot(3,3,9)
+        x = evt_data[:,4]
+        y = evt_data[:,5]
+        z = evt_data[:,13]
+        sc = ax.scatter(x, y, c=z, lw=0.1, alpha=.6)
+        cb = plt.colorbar(sc)
+        cb.set_label('# of used station [deg]')
+        tick_locator = ticker.MaxNLocator(nbins=6)
+        cb.locator = tick_locator
+        cb.update_ticks()
+        ax.set_xlabel('Azimuthal Gap [deg]')
+        ax.set_ylabel('Horizontal Error [km]')
+        ax.set_xlim(0, 360)
+        ax.set_ylim(0, max(ax.get_ylim()))
+        ax.grid(True)
+        ax.locator_params(axis = 'x', nbins=5)
+        ax.locator_params(axis = 'y', nbins=5)
         
         plt.tight_layout()
         plt.savefig(os.path.join('figs', '%s_stat.png'%root_name))
@@ -524,8 +584,8 @@ class main():
         ax.set_title('$Events:$ $Herr_{max} \leq %dkm$ $and$ $Zerr_{max} \leq %dkm$'%(self.Herr_max, self.Zerr_max))
         ax.grid(True)
 
-        c1  = evt_data[:,7]+evt_data[:,8]<=self.Herr_max
-        c2  = evt_data[:,10]<=self.Zerr_max
+        c1  = evt_data[:,5]<=self.Herr_max
+        c2  = evt_data[:,6]<=self.Zerr_max
         
         cxx = evt_data[(c1)&(c2)][:,7]
         cxy = evt_data[(c1)&(c2)][:,8]
@@ -544,7 +604,7 @@ class main():
                                  angle=theta, color='black', alpha=.5)
             ell.set_facecolor('none')
             ax.add_artist(ell)
-            plt.scatter(x, y, zorder=100)
+            plt.scatter(x, y, color='r', marker='*', zorder=100)
         
         plt.tight_layout()
         plt.savefig(os.path.join('figs','%s_map.png'%root_name))
@@ -558,6 +618,6 @@ start.run_nlloc(sta_cor=True)
 start.extract_nlloc_hyp(root_name=start.nlloc_dic['LOCFILES_OUTPUT'])
 start.plot_statis(root_name=start.nlloc_dic['LOCFILES_OUTPUT'])
 
-for f in glob(start.nlloc_dic['LOCFILES_OUTPUT']+'*'): os.remove(f)
+for f in glob(start.nlloc_dic['LOCFILES_OUTPUT']+'*'): os.rename(f,os.path.join('figs', f))
 
 print '\n+++ Finito!\n'
