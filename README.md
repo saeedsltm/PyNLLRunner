@@ -5,7 +5,7 @@ Summary:
 - Using this module you can run Non-Linear Earthquake Location program (NLLOC) more easily and see the statistical and map plots of the final results using matplotlib package.
 
 Requirements:
-- NLLOC.
+- NLLoc package (http://alomax.free.fr/nlloc/).
 - Numpy.
 - Matplotlib.
 
